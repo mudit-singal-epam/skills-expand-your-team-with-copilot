@@ -50,18 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentUser = null;
 
   // Initialize dark mode from localStorage
-  const savedTheme = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-  updateThemeToggle(savedTheme);
+  const savedTheme = localStorage.getItem("theme");
+  const validTheme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : "light";
+  document.documentElement.setAttribute("data-theme", validTheme);
+  updateThemeToggle(validTheme);
 
   // Dark mode toggle functionality
   function updateThemeToggle(theme) {
     if (theme === "dark") {
       themeIcon.textContent = "☀️";
       themeText.textContent = "Light";
+      themeToggle.setAttribute("aria-label", "Switch to light mode");
     } else {
       themeIcon.textContent = "🌙";
       themeText.textContent = "Dark";
+      themeToggle.setAttribute("aria-label", "Switch to dark mode");
     }
   }
 
